@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:padding="@dimen/dimen_64x"
+        android:padding="@dimen/dimen_48x"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/ic_trophy" />
 
@@ -25,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:hint="Email"
         android:paddingLeft="@dimen/dimen_32x"
         android:paddingRight="@dimen/dimen_32x"
         android:paddingTop="@dimen/dimen_16x">
@@ -32,7 +33,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="hint" />
+             />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -40,14 +41,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:hint="Password"
+
         android:paddingLeft="@dimen/dimen_32x"
         android:paddingRight="@dimen/dimen_32x"
-        android:paddingTop="@dimen/dimen_16x">
+        android:paddingTop="@dimen/dimen_16x"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/light_grey">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="hint" />
+            android:password="true" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -55,11 +60,15 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:gravity="center"
+        android:paddingBottom="@dimen/fab_margin"
         android:paddingLeft="@dimen/dimen_32x"
         android:paddingRight="@dimen/dimen_32x"
         android:paddingTop="@dimen/dimen_16x"
-        android:text="Forgot Password?" />
+        android:text="Forgot Password?"
+        android:textColor="@color/dark_grey"
+        android:textStyle="bold" />
 
 
     <android.support.v7.widget.AppCompatButton
@@ -67,10 +76,20 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dimen_32x"
         android:layout_marginRight="@dimen/dimen_32x"
-        android:text="LOG IN" />
+        android:background="@color/colorPrimary"
+        android:text="LOG IN"
+        android:textColor="@color/White" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/dimen_16x"
+        android:background="@color/light_grey" />
 
     <android.support.v7.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="NOT A MEMBER? SIGN UP"/>
+        android:background="@color/White"
+        android:text="NOT A MEMBER? SIGN UP"
+        android:textColor="@color/light_grey" />
 </LinearLayout>
