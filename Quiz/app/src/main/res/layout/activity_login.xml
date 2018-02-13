@@ -13,11 +13,11 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_margin="@dimen/dimen_16x"
         android:layout_weight="1"
-        android:padding="@dimen/dimen_48x"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/ic_trophy" />
 
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:hint="Email"
+        android:hint="@string/email"
         android:paddingLeft="@dimen/dimen_32x"
         android:paddingRight="@dimen/dimen_32x"
         android:paddingTop="@dimen/dimen_16x">
@@ -41,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:hint="Password"
+        android:hint="@string/password"
 
         android:paddingLeft="@dimen/dimen_32x"
         android:paddingRight="@dimen/dimen_32x"
@@ -66,7 +66,7 @@
         android:paddingLeft="@dimen/dimen_32x"
         android:paddingRight="@dimen/dimen_32x"
         android:paddingTop="@dimen/dimen_16x"
-        android:text="Forgot Password?"
+        android:text="@string/forgot_paswword"
         android:textColor="@color/dark_grey"
         android:textStyle="bold" />
 
@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dimen_32x"
         android:layout_marginRight="@dimen/dimen_32x"
-        android:text="LOG IN"
+        android:text="@string/log_in"
         android:textColor="@color/White" />
 
     <View
@@ -87,9 +87,10 @@
         android:background="@color/light_grey" />
 
     <android.support.v7.widget.AppCompatButton
+        android:id="@+id/not_a_member_signup_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/White"
-        android:text="NOT A MEMBER? SIGN UP"
+        android:text="@string/not_a_member_signup"
         android:textColor="@color/light_grey" />
 </LinearLayout>
