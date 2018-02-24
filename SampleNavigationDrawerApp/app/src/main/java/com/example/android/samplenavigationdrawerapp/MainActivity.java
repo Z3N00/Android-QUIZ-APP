@@ -1,4 +1,4 @@
-package com.codingblock.main.quiz;
+package com.example.android.samplenavigationdrawerapp;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -23,7 +23,14 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -73,17 +80,17 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.topics) {
+        if (id == R.id.nav_camera) {
             // Handle the camera action
-        } else if (id == R.id.friends) {
+        } else if (id == R.id.nav_gallery) {
 
-        } else if (id == R.id.messages) {
+        } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.achievement) {
+        } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.settings) {
+        } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.log_out) {
+        } else if (id == R.id.nav_send) {
 
         }
 

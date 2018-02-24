@@ -12,6 +12,7 @@ import android.view.View;
 public class LoginActivity extends AppCompatActivity {
 
     AppCompatButton mAppCompatButton;
+    AppCompatButton mLoginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,16 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(LoginActivity.this,SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mLoginButton=findViewById(R.id.login_button);
+
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                 startActivity(intent);
             }
         });
