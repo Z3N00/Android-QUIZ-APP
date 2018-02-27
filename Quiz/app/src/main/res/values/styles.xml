@@ -15,6 +15,12 @@
         <item name="windowNoTitle">true</item>
 
     </style>
+    
+    <style name="customTabs" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_16x</item>
+
+    </style>
 
     <style name="MyCustomButton">
         <item name="colorAccent">@color/colorPrimary</item>

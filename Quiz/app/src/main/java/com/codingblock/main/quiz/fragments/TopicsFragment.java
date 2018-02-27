@@ -17,6 +17,8 @@ import com.codingblock.main.quiz.R;
 
 import java.util.ArrayList;
 
+
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link TopicsFragment#newInstance} factory method to
@@ -75,32 +77,31 @@ public class TopicsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Activity context=getActivity();
-        TabLayout tabLayout=(TabLayout)context.findViewById(R.id.tablayout);
+        Activity context = getActivity();
+        TabLayout tabLayout = context.findViewById(R.id.tabLayout);
+        ViewPager viewPager = context.findViewById(R.id.viewPager);
 
-        ViewPager viewPager=context.findViewById(R.id.viewPager);
+        CustomPagerAdatper pagerAdatper = new CustomPagerAdatper(getChildFragmentManager());
+        pagerAdatper.addFragment(new PopularTopicsFragment(),"Popular Topics");
+        pagerAdatper.addFragment(new AllTopicsFragment(),"All Topics");
 
-        CustomPagerAdapter pagerAdapter=new CustomPagerAdapter(getChildFragmentManager());
-        pagerAdapter.addFragments(new AllTopicsFragment(),"All Topics");
-        pagerAdapter.addFragments(new AllTopicsFragment(),"Popular Topics");
+        viewPager.setAdapter(pagerAdatper);
 
-        viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    public class CustomPagerAdapter extends FragmentPagerAdapter {
+    public class CustomPagerAdatper extends FragmentPagerAdapter {
 
-        public CustomPagerAdapter(FragmentManager fm) {
+        public ArrayList<Fragment> mFragments = new ArrayList<>();
+        public ArrayList<String> mFragmentTitles = new ArrayList<>();
+
+        public CustomPagerAdatper(FragmentManager fm) {
             super(fm);
         }
 
-        public ArrayList<Fragment> mFragments=new ArrayList<>();
-        public ArrayList<String> mFragmentTitles=new ArrayList<>();
-
-        public void addFragments(Fragment fragment,String title){
+        public void addFragment(Fragment fragment, String title) {
             mFragments.add(fragment);
             mFragmentTitles.add(title);
-
         }
 
         @Override
@@ -118,5 +119,4 @@ public class TopicsFragment extends Fragment {
             return mFragmentTitles.get(position);
         }
     }
-
 }
