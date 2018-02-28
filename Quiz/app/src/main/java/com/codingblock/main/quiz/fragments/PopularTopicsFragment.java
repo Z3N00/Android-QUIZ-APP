@@ -2,12 +2,18 @@ package com.codingblock.main.quiz.fragments;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.codingblock.main.quiz.R;
+import com.codingblock.main.quiz.adapter.TopicsAdapter;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +29,8 @@ public class PopularTopicsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    RecyclerView mRecyclerView;
 
 
     public PopularTopicsFragment() {
@@ -63,4 +71,21 @@ public class PopularTopicsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_popular_topics, container, false);
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        mRecyclerView=getView().findViewById(R.id.popularTopicRecyclerView);
+
+        ArrayList<String> mArrayList=new ArrayList<>();
+        mArrayList.add("Logos Quiz");
+        mArrayList.add("Food & Drink");
+        mArrayList.add("Movies");
+
+        TopicsAdapter topicsAdapter=new TopicsAdapter(getContext(),mArrayList);
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        mRecyclerView.setAdapter(topicsAdapter);
+    }
 }

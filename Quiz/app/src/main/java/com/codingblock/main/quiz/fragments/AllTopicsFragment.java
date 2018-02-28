@@ -1,19 +1,17 @@
 package com.codingblock.main.quiz.fragments;
 
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.codingblock.main.quiz.R;
+import com.codingblock.main.quiz.adapter.TopicsAdapter;
 
 import java.util.ArrayList;
 
@@ -31,6 +29,7 @@ public class AllTopicsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    RecyclerView mRecyclerView;
 
 
     public AllTopicsFragment() {
@@ -68,8 +67,27 @@ public class AllTopicsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_all_topics2, container, false);
+        return inflater.inflate(R.layout.fragment_all_topics, container, false);
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+
+        mRecyclerView=getView().findViewById(R.id.allTopicsRecyclerView);
+
+        ArrayList<String> mArrayList=new ArrayList<>();
+        mArrayList.add("Logos Quiz");
+        mArrayList.add("Food & Drink");
+        mArrayList.add("Movies");
+
+        TopicsAdapter topicsAdapter=new TopicsAdapter(getContext(),mArrayList);
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        mRecyclerView.setAdapter(topicsAdapter);
+    }
 
 }
+
