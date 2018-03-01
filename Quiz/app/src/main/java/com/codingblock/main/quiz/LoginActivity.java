@@ -25,13 +25,13 @@ public class LoginActivity extends AppCompatActivity {
     AppCompatButton mAppCompatButton;
     AppCompatButton mLoginButton;
 
-    FirebaseUser mFirebaseUser;
     FirebaseAuth mFirebaseAuth;
+    FirebaseUser mFirebaseUser;
 
     TextInputLayout mEmailTextInputLayout;
     TextInputLayout mPasswordTextInputLayout;
 
-    EditText mEamilEditText;
+    EditText mEmailEditText;
     EditText mPasswordEditText;
 
     @Override
@@ -39,56 +39,48 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mEmailTextInputLayout=findViewById(R.id.emailTextInputLayout);
-        mPasswordTextInputLayout=findViewById(R.id.passwordTextInputLayout);
+        mEmailTextInputLayout = (TextInputLayout) findViewById(R.id.emailTextInputLayout);
+        mPasswordTextInputLayout = (TextInputLayout) findViewById(R.id.passwordTextInputLayout);
 
-        mEamilEditText=findViewById(R.id.emailEditTextView);
-        mPasswordEditText=findViewById(R.id.passwordEditTextView);
+        mEmailEditText = (EditText) findViewById(R.id.emailEditTextView);
+        mPasswordEditText = (EditText) findViewById(R.id.passwordEditTextView);
 
-        mFirebaseAuth=FirebaseAuth.getInstance();
-        mFirebaseUser=mFirebaseAuth.getCurrentUser();
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
-        mAppCompatButton=findViewById(R.id.not_a_member_signup_button);
+        mAppCompatButton = (AppCompatButton) findViewById(R.id.not_a_member_signup_button);
 
         mAppCompatButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(LoginActivity.this,SignUpActivity.class);
-                startActivity(intent);
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this,SignUpActivity.class));
             }
         });
 
-        mLoginButton=findViewById(R.id.login_button);
+        mLoginButton = (AppCompatButton) findViewById(R.id.login_button);
 
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
+                String email = mEmailEditText.getText().toString();
+                String password = mPasswordEditText.getText().toString();
 
-                String email=mEamilEditText.getText().toString();
-                String password=mPasswordEditText.getText().toString();
-
-                email=email.trim();
-                password=password.trim();
+                email = email.trim();
+                password = password.trim();
 
                 mFirebaseAuth.signInWithEmailAndPassword(email,password).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-
                         Toast.makeText(LoginActivity.this,e.getMessage().toString(),Toast.LENGTH_SHORT).show();
-
                     }
                 }).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                         if(task.isSuccessful()){
-
-                             Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                             startActivity(intent);
-
-                         }else {
-
-                             Toast.makeText(LoginActivity.this,"Sign in failed",Toast.LENGTH_SHORT).show();
-                         }
+                        if(task.isSuccessful()) {
+                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                        } else {
+                            Toast.makeText(LoginActivity.this,"Sign in failed!",Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }
@@ -96,3 +88,4 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 }
+

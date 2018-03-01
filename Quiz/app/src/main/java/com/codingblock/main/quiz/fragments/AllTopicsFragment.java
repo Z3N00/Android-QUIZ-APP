@@ -6,14 +6,21 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.codingblock.main.quiz.R;
 import com.codingblock.main.quiz.adapter.TopicsAdapter;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +28,9 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class AllTopicsFragment extends Fragment {
+
+    private  static String TAG=AllTopicsFragment.class.getSimpleName();
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,6 +39,9 @@ public class AllTopicsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    FirebaseDatabase mFirebaseDatabase;
+
     RecyclerView mRecyclerView;
 
 
@@ -74,19 +87,51 @@ public class AllTopicsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        mFirebaseDatabase=FirebaseDatabase.getInstance();
 
         mRecyclerView=getView().findViewById(R.id.allTopicsRecyclerView);
 
         ArrayList<String> mArrayList=new ArrayList<>();
-        mArrayList.add("Logos Quiz");
-        mArrayList.add("Food & Drink");
-        mArrayList.add("Movies");
+//        mArrayList.add("Logos Quiz");
+//        mArrayList.add("Food & Drink");
+//        mArrayList.add("Movies");
 
-        TopicsAdapter topicsAdapter=new TopicsAdapter(getContext(),mArrayList);
+        final TopicsAdapter topicsAdapter=new TopicsAdapter(getContext(),mArrayList);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         mRecyclerView.setAdapter(topicsAdapter);
+
+        mFirebaseDatabase.getReference("quizz").child("topics").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+
+                String topicName=dataSnapshot.getValue(String.class);
+                topicsAdapter.addTopic(topicName);
+                topicsAdapter.notifyItemInserted(topicsAdapter.getItemCount());
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }

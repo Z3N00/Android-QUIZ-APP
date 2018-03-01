@@ -34,6 +34,9 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicCusto
 
         fillGradientList(mContext);
     }
+    public void addTopic(String topic){
+        mArrayList.add(topic);
+    }
     @Override
     public TopicCustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.topic_item_list_view,parent,false);

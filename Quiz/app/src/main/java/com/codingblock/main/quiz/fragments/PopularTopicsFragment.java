@@ -12,6 +12,10 @@ import android.view.ViewGroup;
 
 import com.codingblock.main.quiz.R;
 import com.codingblock.main.quiz.adapter.TopicsAdapter;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -31,6 +35,8 @@ public class PopularTopicsFragment extends Fragment {
     private String mParam2;
 
     RecyclerView mRecyclerView;
+
+    FirebaseDatabase mFirebaseDatabase;
 
 
     public PopularTopicsFragment() {
@@ -75,17 +81,43 @@ public class PopularTopicsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mRecyclerView=getView().findViewById(R.id.popularTopicRecyclerView);
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
 
-        ArrayList<String> mArrayList=new ArrayList<>();
-        mArrayList.add("Logos Quiz");
-        mArrayList.add("Food & Drink");
-        mArrayList.add("Movies");
+        mRecyclerView = (RecyclerView)getView().findViewById(R.id.popularTopicRecyclerView);
 
-        TopicsAdapter topicsAdapter=new TopicsAdapter(getContext(),mArrayList);
+        ArrayList<String> mArrayList = new ArrayList<>();
 
+        final TopicsAdapter topicsAdapter = new TopicsAdapter(getContext(),mArrayList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         mRecyclerView.setAdapter(topicsAdapter);
+
+        mFirebaseDatabase.getReference("quizz").child("topics").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String topicName = dataSnapshot.getValue(String.class);
+                topicsAdapter.addTopic(topicName);
+                topicsAdapter.notifyItemInserted(topicsAdapter.getItemCount());
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

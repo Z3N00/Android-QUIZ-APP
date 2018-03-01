@@ -26,7 +26,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText mEmailEditTextView;
 
     TextInputLayout mPasswordTextInputLayout;
-    EditText mPasswordEditTextview;
+    EditText mPasswordEditTextView;
 
     FirebaseAuth mFirebaseAuth;
     FirebaseUser mFirebaseUser;
@@ -38,47 +38,45 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        mFirebaseAuth=FirebaseAuth.getInstance();
-        mFirebaseUser=mFirebaseAuth.getCurrentUser();
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
-        mNameTextInputLayout=findViewById(R.id.nameTextInputLayout);
-        mNameEditTextView=findViewById(R.id.nameEditTextView);
+        mNameTextInputLayout = (TextInputLayout) findViewById(R.id.nameTextInputLayout);
+        mNameEditTextView = (EditText) findViewById(R.id.nameEditTextView);
 
-        mEmailTextInputLayout=findViewById(R.id.emailTextInputLayout);
-        mEmailEditTextView=findViewById(R.id.emailEditTextView);
+        mEmailTextInputLayout = (TextInputLayout) findViewById(R.id.emailTextInputLayout);
+        mEmailEditTextView  = (EditText) findViewById(R.id.emailEditTextView);
 
-        mPasswordTextInputLayout=findViewById(R.id.passwordTextInputLayout);
-        mPasswordEditTextview=findViewById(R.id.passwordEditTextView);
+        mPasswordTextInputLayout = (TextInputLayout) findViewById(R.id.passwordTextInputLayout);
+        mPasswordEditTextView = (EditText) findViewById(R.id.passwordEditTextView);
+
+        mAppCompatButton = (AppCompatButton) findViewById(R.id.registerAppCompatButton);
 
 
+        mAppCompatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = mEmailEditTextView.getText().toString().trim();
+                String password = mPasswordEditTextView.getText().toString().trim();
 
-       mAppCompatButton.setOnClickListener(new View.OnClickListener() {
 
-            String email=mEmailEditTextView.getText().toString().trim();
-            String password=mPasswordEditTextview.getText().toString().trim();
-           @Override
-           public void onClick(View view) {
-               mFirebaseAuth.createUserWithEmailAndPassword(email,password).addOnFailureListener(new OnFailureListener() {
-                   @Override
-                   public void onFailure(@NonNull Exception e) {
-
-                       Toast.makeText(SignUpActivity.this,e.getMessage().toString(),Toast.LENGTH_SHORT).show();
-
-                   }
-               }).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                   @Override
-                   public void onComplete(@NonNull Task<AuthResult> task) {
-
-                       if(task.isSuccessful()){
-                           startActivity(new Intent(SignUpActivity.this,MainActivity.class));
-                       }else {
-                           Toast.makeText(SignUpActivity.this, "SignUp failed!", Toast.LENGTH_SHORT).show();
-                       }
-
-                   }
-               });
-           }
-       });
-
+                mFirebaseAuth.createUserWithEmailAndPassword(email,password).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(SignUpActivity.this,e.getMessage().toString(),Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()) {
+                            startActivity(new Intent(SignUpActivity.this,MainActivity.class));
+                        } else {
+                            Toast.makeText(SignUpActivity.this,"Signup failed!",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
     }
 }
+

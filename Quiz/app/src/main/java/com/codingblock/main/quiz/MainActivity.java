@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
         }else{
             //
         }
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         getSupportFragmentManager().beginTransaction().add(R.id.framelayout, new TopicsFragment()).commit();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
